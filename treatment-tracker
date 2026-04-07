@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teeth Progress Tracker</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h2 { color: #334e68; margin-bottom: 20px; }
+
+        /* The Video Box */
+        #video-container {
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #000;
+            margin-bottom: 20px;
+        }
+
+        video {
+            width: 100%;
+            display: block;
+        }
+
+        /* The Custom Slider */
+        .controls {
+            margin-top: 20px;
+        }
+
+        input[type=range] {
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .label-group {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #627d98;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Treatment Progress</h2>
+    
+    <div id="video-container">
+        <video id="teethVideo" preload="auto">
+            <source src="19781.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <div class="controls">
+        <input type="range" id="frameSlider" min="0" max="100" value="0">
+        <div class="label-group">
+            <span>Start</span>
+            <span>Progress</span>
+            <span>Final</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    const video = document.getElementById('teethVideo');
+    const slider = document.getElementById('frameSlider');
+
+    // When the slider moves, update the video timestamp
+    slider.addEventListener('input', function() {
+        const time = (slider.value / 100) * video.duration;
+        video.currentTime = time;
+    });
+
+    // Optional: Ensure video is loaded before sliding
+    video.addEventListener('loadedmetadata', function() {
+        slider.value = 0;
+    });
+</script>
+
+</body>
+</html>
